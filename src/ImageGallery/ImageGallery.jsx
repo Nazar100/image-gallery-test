@@ -24,7 +24,7 @@ class ImageGallery extends Component {
     });
   }
 
-  //  if state was updated we look how many photos should be added in DOM calling paginantePhotos
+  // if state was updated we look how many photos should be added in DOM calling paginantePhotos
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.photosNumber !== this.state.photosNumber) {
