@@ -1,73 +1,73 @@
 import { Component } from 'react';
 
 import './ImageGallery.scss';
-import fetchPhotos from '../services/fetchPhotos';
+import fetchImages from '../services/fetchImages';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import Button from './Button/Button';
 
 class ImageGallery extends Component {
   state = {
-    photos: [],
-    showedPhotos: [],
-    // photosNumber indicates how many phowos should be
-    photosNumber: 10,
+    images: [],
+    showedImages: [],
+    // ImagesNumber indicates how many phowos should be
+    imagesNumber: 10,
   };
 
-  // here we get photos from the fetch and set them in state 'photos'
+  // here I get Images from the fetch and set them in state 'Images'
 
   componentDidMount() {
-    fetchPhotos().then(response => {
+    fetchImages().then(response => {
       this.setState({
-        photos: [...response],
+        images: [...response],
       });
-      this.paginantePhotos();
+      this.paginanteImages();
     });
   }
 
-  // if state was updated we look how many photos should be added in DOM calling paginantePhotos
+  // if state was updated I look how many Images should be added in DOM calling paginanteImages
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.photosNumber !== this.state.photosNumber) {
-      this.paginantePhotos();
+    if (prevState.imagesNumber !== this.state.imagesNumber) {
+      this.paginanteImages();
     }
   }
 
-  // here we select which photo should be added in DOM and set them in state 'showedPhotos'
+  // here I select which photo should be added in DOM and set them in state 'showedImages'
 
-  paginantePhotos = () => {
-    const { photos, photosNumber } = this.state;
+  paginanteImages = () => {
+    const { images, imagesNumber } = this.state;
 
-    const photosToShow = photos.slice(0, photosNumber);
+    const imagesToShow = images.slice(0, imagesNumber);
 
     this.setState({
-      showedPhotos: [...photosToShow],
+      showedImages: [...imagesToShow],
     });
   };
 
-  // here we add 10 more pages to the photosNumber in state and subsequently in DOM
+  // here I add 10 more pages to the ImagesNumber in state and subsequently in DOM
 
-  loadMorePhotos = () => {
+  loadMoreImages = () => {
     this.setState(prevState => ({
-      photosNumber: prevState.photosNumber + 10,
+      imagesNumber: prevState.imagesNumber + 10,
     }));
   };
 
   render() {
-    const { showedPhotos } = this.state;
+    const { showedImages } = this.state;
     return (
       <div className="container">
         <ul className="list">
-          {showedPhotos.map(photo => {
+          {showedImages.map(image => {
             return (
-              <li key={photo.id}>
-                <ImageGalleryItem photo={photo} />
+              <li key={image.id}>
+                <ImageGalleryItem image={image} />
               </li>
             );
           })}
         </ul>
-        {/* button is displayed only if there is more photos to load left */}
-        {showedPhotos.length < 50 && (
-          <Button loadMorePhotos={this.loadMorePhotos} />
+        {/* button is displayed only if there is more Images to load left */}
+        {showedImages.length < 50 && (
+          <Button loadMoreImages={this.loadMoreImages} />
         )}
       </div>
     );

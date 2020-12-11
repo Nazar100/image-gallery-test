@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button';
 
 import './Button.scss';
 
-export default function ButtonLoader({ loadMorePhotos }) {
+export default function ButtonLoader({ loadMoreImages }) {
   return (
     <div>
       <Button
-        onClick={loadMorePhotos}
+        onClick={loadMoreImages}
         variant="contained"
         color="primary"
         className="button"
@@ -19,5 +19,5 @@ export default function ButtonLoader({ loadMorePhotos }) {
 }
 
 ButtonLoader.propTypes = {
-  loadMorePhotos: PropTypes.func.isRequired,
+  loadMoreImages: PropTypes.func.isRequired,
 };
