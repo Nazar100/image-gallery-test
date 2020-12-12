@@ -3,9 +3,7 @@ import axios from 'axios';
 const IMAGES_URL = 'https://jsonplaceholder.typicode.com/photos';
 
 export default function fetchImages() {
-  return axios.get(IMAGES_URL).then(response => {
-    const data = response.data;
-
+  return axios.get(IMAGES_URL).then(({ data }) => {
     return data.filter((image, index) => {
       return (
         //   Here I filter albums with only even ID
