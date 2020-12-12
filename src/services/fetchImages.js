@@ -9,7 +9,7 @@ export default function fetchImages() {
         //   Here I filter albums with only even ID
         image.albumId % 2 === 0 &&
         //   Here I make sure that album id of element is not equal to the album id of preveaus element
-        data[index].albumId !== data[index - 1].albumId
+        image.albumId !== data[index - 1].albumId
       );
     });
   });
