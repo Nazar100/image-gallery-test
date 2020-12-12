@@ -9,7 +9,7 @@ class ImageGallery extends Component {
   state = {
     images: [],
     showedImages: [],
-    // ImagesNumber indicates how many phowos should be
+    // ImagesNumber indicates how many images should be in the DOM
     imagesNumber: 10,
   };
 
