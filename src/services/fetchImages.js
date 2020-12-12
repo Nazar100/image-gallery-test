@@ -8,7 +8,7 @@ export default function fetchImages() {
       return (
         //   Here I filter albums with only even ID
         image.albumId % 2 === 0 &&
-        //Make sure that album id of element is not equal to the album id of preveaus element to find only the first image of the album
+        //Make sure that album id of element is not equal to the album id of preveaus element to filter only the first image of the album
         image.albumId !== data[index - 1].albumId
       );
     });
