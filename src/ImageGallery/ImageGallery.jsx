@@ -13,12 +13,12 @@ class ImageGallery extends Component {
   };
 
   componentDidMount() {
-    this.loadPhotos();
+    this.loadImages();
   }
 
-  // Here we accept result from request and add in DOM onlu necessary amount of images
+  // Here we accept result from request and add in DOM only necessary amount of images
 
-  loadPhotos = () => {
+  loadImages = () => {
     const { imagesNumber } = this.state;
     fetchImages().then(response => {
       const showedImages = response.slice(0, imagesNumber);
@@ -28,15 +28,15 @@ class ImageGallery extends Component {
     });
   };
 
-  // if state was updated I look how many Images should be added in DOM calling paginanteImages
+  // if state was updated I look how many Images should be added in DOM calling loadImages
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.imagesNumber !== this.state.imagesNumber) {
-      this.loadPhotos();
+      this.loadImages();
     }
   }
 
-  // here I add 10 more pages to the ImagesNumber in state and subsequently in DOM
+  // here I add 10 more images to the ImagesNumber in state and subsequently in DOM
 
   loadMoreImages = () => {
     this.setState(prevState => ({
