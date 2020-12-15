@@ -8,41 +8,33 @@ import Button from './Button/Button';
 class ImageGallery extends Component {
   state = {
     images: [],
-    showedImages: [],
     // ImagesNumber indicates how many images should be in the DOM
     imagesNumber: 10,
   };
 
-  // here I get Images from the fetch and set them in state 'Images'
-
   componentDidMount() {
-    fetchImages().then(response => {
-      this.setState({
-        images: [...response],
-      });
-      this.paginanteImages();
-    });
+    this.loadPhotos();
   }
+
+  // Here we accept result from request and add in DOM onlu necessary amount of images
+
+  loadPhotos = () => {
+    const { imagesNumber } = this.state;
+    fetchImages().then(response => {
+      const showedImages = response.slice(0, imagesNumber);
+      this.setState({
+        images: [...showedImages],
+      });
+    });
+  };
 
   // if state was updated I look how many Images should be added in DOM calling paginanteImages
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.imagesNumber !== this.state.imagesNumber) {
-      this.paginanteImages();
+      this.loadPhotos();
     }
   }
-
-  // here I select which photo should be added in DOM and set them in state 'showedImages'
-
-  paginanteImages = () => {
-    const { images, imagesNumber } = this.state;
-
-    const imagesToShow = images.slice(0, imagesNumber);
-
-    this.setState({
-      showedImages: [...imagesToShow],
-    });
-  };
 
   // here I add 10 more pages to the ImagesNumber in state and subsequently in DOM
 
@@ -53,11 +45,11 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { showedImages } = this.state;
+    const { images } = this.state;
     return (
       <div className="container">
         <ul className="list">
-          {showedImages.map(image => {
+          {images.map(image => {
             return (
               <li key={image.id}>
                 <ImageGalleryItem image={image} />
@@ -66,9 +58,7 @@ class ImageGallery extends Component {
           })}
         </ul>
         {/* button is displayed only if there is more Images to load left */}
-        {showedImages.length < 50 && (
-          <Button loadMoreImages={this.loadMoreImages} />
-        )}
+        {images.length < 50 && <Button loadMoreImages={this.loadMoreImages} />}
       </div>
     );
   }
